@@ -1,27 +1,33 @@
 #!/usr/bin/env bash
-# This Script installs nginx and have a file in it that returns Hello World
+#install ngix and have a file that returns the string "Hello World  inside
 
-if ! sudo apt update && sudo apt install -y nginx; then
+sudo apt-get update -y && \
+sudo apt-get install -y nginx
+if [ $? -eq 0 ]
+then
     echo -e \
-    "http{
+"http {
     root /var/www/school;
-    index index.html index.htm
-    Server{
+    index index.html;
+    server {
         listen 80;
         location \ {
         }
     }
-    }
-    events{
-    }" > /etc/nginx/nginx.conf
-        mkdir -p /var/www/school
-        echo "hello World!" > \
-        /var/www/school/index.html
-        if ! service nginx start; then
-            echo "Cannot start nginx"
-            exit 1
-        fi
+}
+events {
+}" > /etc/nginx/nginx.conf
+    mkdir -p /var/www/school
+    echo "Hello World!" > \
+	/var/www/school/index.html
+    service nginx start
+    if [ $? -ne 0 ]
+    then
+	"Problem starting nginx"
+	exit 1
+    fi
 else
-    echo "Nginx is up and running"
+    echo "Could not install nginx"
+    exit 1
 fi
 exit 0
