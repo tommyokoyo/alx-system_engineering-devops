@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # This Script installs nginx and have a file in it that returns Hello World
-sudo apt update && sudo apt install -y nginx
 
 if ! sudo apt update && sudo apt install -y nginx; then
     echo -e \
