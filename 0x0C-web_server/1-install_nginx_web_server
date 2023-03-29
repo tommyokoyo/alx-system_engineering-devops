@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
 
-if ! sudo apt update -y && sudo apt install -y nginx;
+if ! sudo apt update -y && sudo apt install -y nginx-full;
 then
     echo "Could not install nginx"
     exit 1   
@@ -31,3 +31,4 @@ else
             exit 0
         fi
 fi
+exit 0
