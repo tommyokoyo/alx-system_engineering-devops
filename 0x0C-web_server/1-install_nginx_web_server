@@ -6,15 +6,15 @@ then
     exit 1   
 else
     #create the web directory
-    sudo mkdir -p /var/www/alx
+    sudo mkdir -p /var/www/html
     #configure firewall to allow both http and https traffic
     sudo ufw allow 'nginx full'
     sudo ufw reload
     #configure ownership and permissions
-    sudo chown -R $USER:$USER /var/www/alx
-    sudo chmod -R 755 /var/www/alx
+    sudo chown -R "$USER":"$USER" /var/www
+    sudo chmod -R 755 /var/www
     #creating an index file to be displayed on the browser
-    sudo echo "Hello World!" > /var/www/alx/index.html
+    echo "Hello World!" > /var/www/alx/index.html
     #Starting the service
     if ! sudo service nginx start;
     then
@@ -25,4 +25,3 @@ else
             exit 0
         fi
 fi
-exit 0
