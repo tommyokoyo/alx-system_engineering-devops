@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
 
-if ! sudo apt-get update -y && sudo apt-get install -y nginx;
+if ! sudo apt update -y && sudo apt install -y nginx;
 then
     echo -e \
 "http {
     root /var/www/school;
     index index.html;
     server {
-        listen 80;
-        location \ {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    location \ {
         }
     }
 }
@@ -18,7 +19,7 @@ events {
     mkdir -p /var/www/school
     echo "Hello World!" > \
 	/var/www/school/index.html
-    if ! service nginx start;
+    if ! sudo service nginx start;
     then
 	"Problem starting nginx"
 	exit 1
