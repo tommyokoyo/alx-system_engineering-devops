@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 #install ngix in web server
-
 CONFIGURE_SERVER=\
 "server {
 	listen 80;
