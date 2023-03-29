@@ -1,29 +1,23 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
-
 if ! sudo apt update -y && sudo apt install -y nginx-full;
 then
     echo "Could not install nginx"
     exit 1   
 else
-    sudo echo -e \
-    "http {
-        root /var/www/school;
-        index index.html;
-        server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        location \ {
-            }
-        }
-    }
-    events {
-    }" > /etc/nginx/nginx.conf
-        sudo mkdir -p /var/www/school
-        sudo echo "Hello World!" > \
-        /var/www/school/index.html
-        if ! sudo service nginx start;
-        then
+    #create the web directory
+    sudo mkdir -p /var/www/school
+    #configure firewall to allow both http and https traffic
+    sudo ufw allow 'nginx full'
+    sudo ufw reload
+    #configure ownership and permissions
+    sudo chown -R $USER:$USER /var/www/alx
+    sudo chmod -R 755 /var/www/alx
+    #creating an index file to be displayed on the browser
+    sudo echo "Hello World!" > /var/www/alx/index.html
+    #Starting the service
+    if ! sudo service nginx start;
+    then
             echo "Problem starting nginx"
             exit 1
         else
