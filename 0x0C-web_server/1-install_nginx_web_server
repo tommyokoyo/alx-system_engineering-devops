@@ -6,7 +6,7 @@ then
     exit 1   
 else
     #create the web directory
-    sudo mkdir -p /var/www/school
+    sudo mkdir -p /var/www/alx
     #configure firewall to allow both http and https traffic
     sudo ufw allow 'nginx full'
     sudo ufw reload
