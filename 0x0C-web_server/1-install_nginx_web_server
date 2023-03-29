@@ -12,7 +12,6 @@ CONFIGURE_SERVER=\
 	index index.html;
 
 	location / {
-		try_files $uri $uri/ =404;
 	}
 }"
 #update and install Nginx
@@ -23,7 +22,7 @@ sudo mkdir -p /var/www/Gramins.com
 #unlink the site-enabled config file
 sudo unlink /etc/nginx/sites-enabled/default
 # Configure nginx to listen on port 80
-sudo echo "{$CONFIGURE_SERVER}" > /etc/nginx/sites-available/Gramins.com
+sudo echo "{$CONFIGURE_SERVER}" | sudo tee /etc/nginx/sites-available/Gramins.com
 #create a link to the site-enabled folder
 sudo ln -s /etc/nginx/sites-available/Gramins.com /etc/nginx/sites-enabled/
 #configure firewall to allow both http and https traffic
