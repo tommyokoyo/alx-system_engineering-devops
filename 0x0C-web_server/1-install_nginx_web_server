@@ -14,7 +14,7 @@ else
     sudo chown -R "$USER":"$USER" /var/www
     sudo chmod -R 755 /var/www
     #creating an index file to be displayed on the browser
-    echo "Hello World!" > /var/www/alx/index.html
+    sudo echo "Hello World!" > /var/www/html/index.html
     #Starting the service
     if ! sudo service nginx start;
     then
