@@ -6,7 +6,7 @@ then
     echo "Could not install nginx"
     exit 1   
 else
-    echo -e \
+    sudo echo -e \
     "http {
         root /var/www/school;
         index index.html;
@@ -19,8 +19,8 @@ else
     }
     events {
     }" > /etc/nginx/nginx.conf
-        mkdir -p /var/www/school
-        echo "Hello World!" > \
+        sudo mkdir -p /var/www/school
+        sudo echo "Hello World!" > \
         /var/www/school/index.html
         if ! sudo service nginx start;
         then
