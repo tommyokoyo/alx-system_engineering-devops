@@ -1,27 +1,11 @@
 #!/usr/bin/env bash
-#install ngix and have a file that returns the string "Hello World  inside
-if ! sudo apt update -y && sudo apt install -y nginx-full;
-then
-    echo "Could not install nginx"
-    exit 1   
-else
-    #create the web directory
-    sudo mkdir -p /var/www/html
-    #configure firewall to allow both http and https traffic
-    sudo ufw allow 'nginx full'
-    sudo ufw reload
-    #configure ownership and permissions
-    sudo chown -R "$USER":"$USER" /var/www
-    sudo chmod -R 755 /var/www
-    #creating an index file to be displayed on the browser
-    sudo echo "Hello World!" > /var/www/html/index.html
-    #Starting the service
-    if ! sudo service nginx restart;
-    then
-            echo "Problem starting nginx"
-            exit 1
-        else
-            echo "Nginx is running"
-            exit 0
-        fi
-fi
+#Installing Nginx on linux
+# Update package list and install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+# Configure nginx to listen on port 80
+sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+# Create the "Hello World!" page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+# Restart nginx without using systemctl
+sudo service nginx restart
