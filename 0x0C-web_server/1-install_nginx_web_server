@@ -1,11 +1,31 @@
 #!/usr/bin/env bash
-#install ngix
+#install ngix in web server
+
+CONFIGURE_SERVER=\
+"server {
+	listen 80;
+	listen [::]:80;
+
+	server_name Gramins.com;
+
+	root /var/www/Gramins.com;
+	index index.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}"
+#update and install Nginx
 sudo apt -y update 
 sudo apt install -y nginx
-# Configure nginx to listen on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
 #create the web directory
-sudo mkdir -p /var/www/html
+sudo mkdir -p /var/www/Gramins.com
+#unlink the site-enabled config file
+sudo unlink /etc/nginx/sites-enabled/default
+# Configure nginx to listen on port 80
+sudo echo "{$CONFIGURE_SERVER}" > /etc/nginx/sites-available/Gramins.com
+#create a link to the site-enabled folder
+sudo ln -s /etc/nginx/sites-available/Gramins.com /etc/nginx/sites-enabled/
 #configure firewall to allow both http and https traffic
 sudo ufw allow 'nginx full'
 sudo ufw reload
@@ -13,6 +33,6 @@ sudo ufw reload
 sudo chown -R "$USER":"$USER" /var/www
 sudo chmod -R 755 /var/www
 #creating an index file to be displayed on the browser
-echo "Hello World!" > /var/www/html/index.html
+echo "Hello World!" > /var/www/Gramins.com/index.html
 # Restart nginx without using systemctl
 sudo service nginx restart
