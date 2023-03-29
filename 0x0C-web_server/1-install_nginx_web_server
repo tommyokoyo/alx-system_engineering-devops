@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#install ngix and have a file that returns the string "Hello World  inside
+#install ngix
 sudo apt -y update 
 sudo apt install -y nginx
 # Configure nginx to listen on port 80
