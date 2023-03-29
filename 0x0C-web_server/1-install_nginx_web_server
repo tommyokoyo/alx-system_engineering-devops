@@ -1,36 +1,33 @@
 #!/usr/bin/env bash
-#install ngix in web server
-CONFIGURE_SERVER=\
-"server {
-	listen 80;
-	listen [::]:80;
+#install ngix and have a file that returns the string "Hello World  inside
 
-	server_name Gramins.com;
-
-	root /var/www/Gramins.com;
-	index index.html;
-
-	location / {
-	}
-}"
-#update and install Nginx
-sudo apt -y update 
-sudo apt install -y nginx
-#create the web directory
-sudo mkdir -p /var/www/Gramins.com
-#unlink the site-enabled config file
-sudo unlink /etc/nginx/sites-enabled/default
-# Configure nginx to listen on port 80
-sudo echo "{$CONFIGURE_SERVER}" | sudo tee /etc/nginx/sites-available/Gramins.com
-#create a link to the site-enabled folder
-sudo ln -s /etc/nginx/sites-available/Gramins.com /etc/nginx/sites-enabled/
-#configure firewall to allow both http and https traffic
-sudo ufw allow 'nginx full'
-sudo ufw reload
-#configure ownership and permissions
-sudo chown -R "$USER":"$USER" /var/www
-sudo chmod -R 755 /var/www
-#creating an index file to be displayed on the browser
-echo "Hello World!" > /var/www/Gramins.com/index.html
-# Restart nginx without using systemctl
-sudo service nginx restart
+sudo apt-get update -y && \
+sudo apt-get install -y nginx
+if [ $? -eq 0 ]
+then
+    echo -e \
+"http {
+    root /var/www/school;
+    index index.html;
+    server {
+        listen 80;
+        location \ {
+        }
+    }
+}
+events {
+}" > /etc/nginx/nginx.conf
+    mkdir -p /var/www/school
+    echo "Hello World!" > \
+	/var/www/school/index.html
+    service nginx start
+    if [ $? -ne 0 ]
+    then
+	"Problem starting nginx"
+	exit 1
+    fi
+else
+    echo "Could not install nginx"
+    exit 1
+fi
+exit 0
