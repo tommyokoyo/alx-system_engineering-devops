@@ -1,31 +1,18 @@
 #!/usr/bin/env bash
-#Installing Nginx on linux
-#!/bin/bash
-
-# Install Nginx
-apt-get update
-apt-get install nginx -y
-
-# Configure Nginx to listen on port 80
-sed -i 's/# listen 80 default_server;/listen 80 default_server;/' /etc/nginx/sites-available/default
-
-# Create a new server block
-cat > /etc/nginx/sites-available/helloworld <<EOF
-server {
-    listen 80;
-    root /var/www/html;
-    index index.html;
-    location / {
-        return 200 "Hello World!";
-    }
-}
-EOF
-
-# Enable the new server block
-ln -s /etc/nginx/sites-available/helloworld /etc/nginx/sites-enabled/
-
-# Test the Nginx configuration
-nginx -t
-
-# Restart Nginx
-kill -HUP $(cat /var/run/nginx.pid)
+#install ngix and have a file that returns the string "Hello World  inside
+sudo apt -y update 
+sudo apt install -y nginx
+# Configure nginx to listen on port 80
+sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+#create the web directory
+sudo mkdir -p /var/www/html
+#configure firewall to allow both http and https traffic
+sudo ufw allow 'nginx full'
+sudo ufw reload
+#configure ownership and permissions
+sudo chown -R "$USER":"$USER" /var/www
+sudo chmod -R 755 /var/www
+#creating an index file to be displayed on the browser
+echo "Hello World!" > /var/www/html/index.html
+# Restart nginx without using systemctl
+sudo service nginx restart
