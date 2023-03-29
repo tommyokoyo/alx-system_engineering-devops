@@ -16,7 +16,7 @@ else
     #creating an index file to be displayed on the browser
     sudo echo "Hello World!" > /var/www/html/index.html
     #Starting the service
-    if ! sudo service nginx start;
+    if ! sudo service nginx restart;
     then
             echo "Problem starting nginx"
             exit 1
