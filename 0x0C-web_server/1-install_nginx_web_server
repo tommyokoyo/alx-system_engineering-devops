@@ -3,29 +3,31 @@
 
 if ! sudo apt update -y && sudo apt install -y nginx;
 then
+    echo "Could not install nginx"
+    exit 1   
+else
     echo -e \
-"http {
-    root /var/www/school;
-    index index.html;
-    server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    location \ {
+    "http {
+        root /var/www/school;
+        index index.html;
+        server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        location \ {
+            }
         }
     }
-}
-events {
-}" > /etc/nginx/nginx.conf
-    mkdir -p /var/www/school
-    echo "Hello World!" > \
-	/var/www/school/index.html
-    if ! sudo service nginx start;
-    then
-	"Problem starting nginx"
-	exit 1
-    fi
-else
-    echo "Could not install nginx"
-    exit 1
+    events {
+    }" > /etc/nginx/nginx.conf
+        mkdir -p /var/www/school
+        echo "Hello World!" > \
+        /var/www/school/index.html
+        if ! sudo service nginx start;
+        then
+            echo "Problem starting nginx"
+            exit 1
+        else
+            echo "Nginx is running"
+            exit 0
+        fi
 fi
-exit 0
