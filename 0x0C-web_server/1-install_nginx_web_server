@@ -24,6 +24,9 @@ sudo apt-get -y update
 
 if ! sudo apt-get install -y nginx;
 then
+    echo "Installation Dropped"
+    exit 1
+else
     #make the web dir
     sudo mkdir -p /var/www/html
     #change ownership of the folder
@@ -36,7 +39,4 @@ then
     #restart nginx
     sudo service nginx restart
     exit 0
-else
-    echo "Installation Dropped"
-    exit 1
 fi
