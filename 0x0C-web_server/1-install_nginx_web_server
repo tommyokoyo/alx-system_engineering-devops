@@ -32,7 +32,7 @@ then
     #create the index file
     sudo echo "Hello World!" > /var/www/html/index.html
     #make the config file
-    echo "$SERVER_CONFIG" > /etc/nginx/sites-available/default
+    #echo "$SERVER_CONFIG" > /etc/nginx/sites-available/default
     #restart nginx
     sudo service nginx restart
     exit 0
