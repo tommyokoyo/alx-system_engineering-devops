@@ -22,21 +22,15 @@ SERVER_CONFIG=\
 
 #update and install nginx
 sudo apt-get -y update
-if ! sudo apt-get install -y nginx;
-then
-    #make the web dir
-    sudo mkdir -p /var/www/html
-    #change ownership of the folder
-    sudo chown -R $USER:$USER /var/www/html
-    sudo chmod -R 755 /var/www
-    #create the index file
-    sudo echo "Hello World!" > /var/www/html/index.html
-    #make the config file
-    #echo "$SERVER_CONFIG" > /etc/nginx/sites-available/default
-    #restart nginx
-    sudo service nginx restart
-    exit 0
-else
-    echo "Failed"
-    exit 1
-fi
+sudo apt-get install -y nginx;
+#make the web dir
+sudo mkdir -p /var/www/html
+#change ownership of the folder
+sudo chown -R $USER:$USER /var/www/html
+sudo chmod -R 755 /var/www
+#create the index file
+sudo echo "Hello World!" > /var/www/html/index.html
+#make the config file
+#echo "$SERVER_CONFIG" > /etc/nginx/sites-available
+#restart nginx
+sudo service nginx restart
