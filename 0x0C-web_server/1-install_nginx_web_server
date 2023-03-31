@@ -1,33 +1,16 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
 
-sudo apt-get update -y && \
-sudo apt-get install -y nginx
-if [ $? -eq 0 ]
+sudo apt-get -y update
+if ! sudo apt-get install -y nginx;
 then
-    echo -e \
-"http {
-    root /var/www/school;
-    index index.html;
-    server {
-        listen 80;
-        location \ {
-        }
-    }
-}
-events {
-}" > /etc/nginx/nginx.conf
-    mkdir -p /var/www/school
-    echo "Hello World!" > \
-	/var/www/school/index.html
-    service nginx start
-    if [ $? -ne 0 ]
-    then
-	"Problem starting nginx"
-	exit 1
-    fi
-else
-    echo "Could not install nginx"
+    echo "Nginx not installed"
     exit 1
-fi
-exit 0
+else
+    echo "Hello World!" > /var/www/html/index.html
+    if ! sudo service nginx restart;
+    then
+        echo "Something went wrong"
+    else
+        echo "Restart succesful"
+        exit 0
