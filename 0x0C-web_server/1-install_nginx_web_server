@@ -16,21 +16,28 @@ SERVER_CONFIG=\
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+                #try_files $uri $uri/ =404;
+                return 200;
         }
 }"
 
 #update and install nginx
 sudo apt-get -y update
-sudo apt-get install -y nginx;
-#make the web dir
-sudo mkdir -p /var/www/html
-#change ownership of the folder
-sudo chown -R $USER:$USER /var/www/html
-sudo chmod -R 755 /var/www
-#create the index file
-sudo echo "Hello World!" > /var/www/html/index.html
-#make the config file
-#echo "$SERVER_CONFIG" > /etc/nginx/sites-available
-#restart nginx
-sudo service nginx restart
+if ! sudo apt-get install -y nginx;
+then
+    #make the web dir
+    sudo mkdir -p /var/www/html
+    #change ownership of the folder
+    sudo chown -R $USER:$USER /var/www/html
+    sudo chmod -R 755 /var/www
+    #create the index file
+    sudo echo "Hello World!" > /var/www/html/index.html
+    #make the config file
+    echo "$SERVER_CONFIG" > /etc/nginx/sites-available
+    #restart nginx
+    sudo service nginx restart
+    exit 0
+else
+    echo "Failed"
+    exit 1
+fi
