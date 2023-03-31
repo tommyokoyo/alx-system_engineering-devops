@@ -1,8 +1,50 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
+
+$SERVER_CONFIG=\
+"server {
+        listen 8888;
+        listen [::]:8888;
+
+        root /var/www/alx;
+
+        # Add index.php to the list if you are using PHP
+        index index.html;
+
+        server_name _;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+}"
+#update and install nginx
 sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw allow "Nginx HTTP"
-sudo chown -R $USER:$USER /var/www/html/index.nginx-debian.html
-sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
-sudo service nginx restart
+if ! sudo apt-get install -y nginx;
+then
+    echo "Nginx not installed"
+    exit 1
+else
+    #change ownership of the folder
+    sudo chown -R $USER:$USER /var/www
+    sudo chmod -R 755 /var/www
+    #make the web dir
+    sudo mkdir -p /var/www/alx
+    #create the index file
+    sudo echo "Hello World" > /var/www/alx/index.html
+    touch /etc/nginx/sites-available/alx
+    #make the config file
+    echo "$SERVER_CONFIG" > /etc/nginx/sites-available/alx
+    #configure firewall to allow traffic
+    sudo ufw allow "nginx HTTP"
+    #restart nginx
+    if ! sudo service nginx restart;
+    then
+        echo "Something went wrong"
+    else
+        echo "Restart succesful"
+        exit 0
+    fi
+fi
+exit 0
