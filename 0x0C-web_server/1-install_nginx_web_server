@@ -6,7 +6,7 @@ SERVER_CONFIG=\
         listen 80;
         listen [::]:80;
 
-        root /var/www/alx;
+        root /var/www;
 
         # Add index.php to the list if you are using PHP
         index index.html index.nginx-debian.html;
@@ -14,7 +14,7 @@ SERVER_CONFIG=\
         server_name _;
 
         location / {
-            root /var/www/alx;
+            root /var/www;
         }
 }"
 #update and install nginx
@@ -26,16 +26,16 @@ then
     exit 1
 else
     #make the web dir
-    sudo mkdir -p /var/www/alx
+    sudo mkdir -p /var/www/
     #change ownership of the folder
-    sudo chown -R $USER:$USER /var/www/alx
+    sudo chown -R $USER:$USER /var/www/
     sudo chmod -R 755 /var/www
     #create the index file
-    sudo echo "Hello World!" > /var/www/alx/index.html
+    sudo echo "Hello World!" > /var/www/index.html
     #make the config file
-    sudo echo "$SERVER_CONFIG" > /etc/nginx/sites-available/alx
+    sudo echo "$SERVER_CONFIG" > /etc/nginx/sites-available/default
     #create symbolic link to the config file in site-available
-    ln -s /etc/nginx/sites-available/alx /etc/nginx/sites-enabled/alx
+    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
     #allow traffic through the firewall
     sudo ufw allow 'Nginx HTTP'
     #restart nginx
