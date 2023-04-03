@@ -3,8 +3,8 @@
 
 SERVER_CONFIG=\
 "server {
-        listen 90;
-        listen [::]:90;
+        listen 80;
+        listen [::]:80;
 
         root /var/www/alx;
 
