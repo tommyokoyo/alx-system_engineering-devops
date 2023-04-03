@@ -29,7 +29,7 @@ else
     sudo mkdir -p /var/www/html/alx
     #change ownership of the folder
     sudo chown -R $USER:$USER /var/www/html/alx
-    sudo chmod -R 755 /var/www/html
+    sudo chmod -R 755 /var/www
     #create the index file
     sudo echo "Hello World!" > /var/www/html/alx/index.html
     #make the config file
