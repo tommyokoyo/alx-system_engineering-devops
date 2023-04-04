@@ -36,6 +36,8 @@ else
     sudo echo "$SERVER_CONFIG" > /etc/nginx/sites-available/alx
     #create symbolic link to the config file in site-available
     ln -s /etc/nginx/sites-available/alx /etc/nginx/sites-enabled/alx
+    #removing the default config file serving on port 80
+    sudo rm /etc/nginx/sites-enabled/default
     #allow traffic through the firewall
     sudo ufw allow 'Nginx HTTP'
     #restart nginx
