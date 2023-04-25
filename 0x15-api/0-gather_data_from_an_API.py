@@ -6,8 +6,8 @@ This scripts fetches USER details from a REST API
 args: @user_id
 """
 
-import requests
 from sys import argv
+import requests
 
 if __name__ == '__main__':
     if len(argv) > 1:
