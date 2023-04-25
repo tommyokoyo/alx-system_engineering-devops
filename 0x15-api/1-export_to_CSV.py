@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
 # writing the data to csv file
 with open("{}.csv".format(user_id), mode="w") as csvfile:
-    writer = csv.writer(csvfile)
+    writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
     for i in range(len(tasks_title)):
         writer.writerow([user_ID, employee_name,
                          task_status[i], tasks_title[i]])
