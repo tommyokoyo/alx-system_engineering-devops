@@ -15,8 +15,7 @@ if __name__ == '__main__':
         user_url = "https://jsonplaceholder.typicode.com/users/"+user_id
         user_data = requests.get(user_url).json()
 
-
-        #confirm if the user id is the one fetched
+        # confirm if the user id is the one fetched
         user_ID = user_data.get("id")
         if int(user_id) == user_ID:
             employee_name = user_data.get("name")
@@ -29,21 +28,20 @@ if __name__ == '__main__':
             for i in tasks:
                 if user_ID == i.get("userId"):
                     status = i.get("completed")
-                    if status == True:
+                    if status is True:
                         task_completed += 1
                         total_tasks += 1
                         tasks_title.append(i.get("title"))
 
                     else:
-                            total_tasks += 1
+                        total_tasks += 1
                 else:
                     pass
-            
-            print("Employee {0} is done with tasks({1}/{2}):".format(employee_name, task_completed, total_tasks))
+            print("Employee {0} is done with tasks({1}/{2}):".format(
+                employee_name, task_completed, total_tasks))
             for j in tasks_title:
                 print("\t {}".format(j))
         else:
-            raise ValueErrorint("Wrong user")    
-                
+            raise ValueError("Wrong user")
     else:
         raise ValueError("No arguments provided")
