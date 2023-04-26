@@ -49,6 +49,10 @@ if __name__ == '__main__':
     else:
         raise ValueError("No arguments provided")
 
+"""
+
+Exports the data to a csv file
+"""
 # writing the data to csv file
 with open("{}.csv".format(user_id), mode="w") as csvfile:
     writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
