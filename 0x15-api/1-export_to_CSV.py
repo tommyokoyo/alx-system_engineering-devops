@@ -2,7 +2,7 @@
 
 """
 
-This scripts fetches USER details from a REST API
+This scripts fetches USER details from a REST API and exports the data in the CSV format
 args: @user_id
 """
 
