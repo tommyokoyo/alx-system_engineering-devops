@@ -28,16 +28,18 @@ if __name__ == '__main__':
 
             for i in tasks:
                 if user_ID == i.get("userId"):
-                    status = i.get("completed")
-                    task_status.append(status)
-                    if status is True:
-                        task_completed += 1
-                        total_tasks += 1
-                        tasks_title.append(i.get("title"))
-                    else:
-                        total_tasks += 1
+                    tasks_title.append(i.get("title"))
+                    task_status.append(i.get("completed"))
                 else:
                     pass
+
+            for j in task_status:
+                        if j is True:
+                            task_completed += 1
+                            total_tasks += 1
+                        else:
+                            total_tasks += 1
+
             print("Employee {0} is done with tasks({1}/{2}):".format(
                 employee_name, task_completed, total_tasks))
 
