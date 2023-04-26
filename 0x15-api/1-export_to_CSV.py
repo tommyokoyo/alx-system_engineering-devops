@@ -18,7 +18,7 @@ if __name__ == '__main__':
         # confirm if the user id is the one fetched
         user_ID = user_data.get("id")
         if int(user_id) == user_ID:
-            employee_name = user_data.get("name")
+            employee_name = user_data.get("username")
             tasks_url = "https://jsonplaceholder.typicode.com/todos/"
             tasks = requests.get(tasks_url).json()
             task_completed = 0
