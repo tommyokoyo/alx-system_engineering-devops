@@ -1,6 +1,30 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
 
+SERVER_CONFIG=\
+"server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.nginx-debian.html;
+
+        server_name _;
+
+        location = / {
+            root /var/www/html;
+        }
+}"
+
+INDEX_FILE=\
+"<html>
+    <body>
+        <h1>Hello World!</h1>
+    </body>
+</html>
+"
 #update and install nginx
 sudo apt-get -y update
 
@@ -10,14 +34,12 @@ then
     exit 1
 else
     #make the web dir
-    sudo mkdir -p /var/www/alx/html
+    sudo mkdir -p /var/www/html
     #change ownership of the folder
-    sudo chown -R $USER:$USER /var/www/alx/html
-    sudo chmod -R 755 /var/www/alx/html
+    sudo chown -R $USER:$USER /var/www/html
+    sudo chmod -R 755 /var/www/html
     #create the index file
-    sudo echo "$INDEX_FILE" > /var/www/alx/html/index.html
-    #make the config file
-    sudo sed -i 's/listen\ \[::\]:80\ default_server;/listen\ 80\ default_server;/g' /etc/nginx/sites-available/default
+    sudo echo "$INDEX_FILE" > /var/www/html/index.html
     #allow traffic through the firewall
     sudo ufw allow 'Nginx HTTP'
     #restart nginx
