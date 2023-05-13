@@ -17,8 +17,8 @@ SERVER_CONFIG=\
             root /var/www/html;
         }
 
-        location /redirect_me {
-        return 301 https://twitter.com/okoyo_tommy;
+        location = /redirect_me {
+        return 301 https://linkedin.com/in/okoyotommy;
         }
 }"
 
