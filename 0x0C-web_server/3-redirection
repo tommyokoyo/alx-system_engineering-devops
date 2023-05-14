@@ -1,54 +1,17 @@
 #!/usr/bin/env bash
 #install ngix and have a file that returns the string "Hello World  inside
 
-SERVER_CONFIG=\
-"server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
 
-        root /var/www/html;
-
-        # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-
-        location = / {
-            root /var/www/html;
-        }
-
-        location = /redirect_me {
-                return 301;
-        }
-}
-"
-
-INDEX_FILE=\
-"<html>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
-"
-#update and install nginx
-sudo apt-get -y update
-
-if ! sudo apt-get install -y nginx;
-then
-    echo "Installation Dropped"
-    exit 1
-else
-    #make the web dir
-    sudo mkdir -p /var/www/html
-    #change ownership of the folder
-    sudo chown -R "$USER":"$USER" /var/www/html
-    sudo chmod -R 755 /var/www/html
-    #create the index file
-    sudo echo "$INDEX_FILE" | sudo tee /var/www/html/index.html
-    sudo echo "$SERVER_CONFIG" | sudo tee /etc/nginx/sites-available/default
-    #allow traffic through the firewall
-    sudo ufw allow 'Nginx HTTP'
-    #restart nginx
-    sudo service nginx restart
-    exit 0
-fi
+apt-get update
+apt-get install -y nginx
+echo "Hello World!" > /var/www/html/index.html
+echo "server {
+    listen 80;
+    listen [::]:80 default_server;
+    root   var/www/html;
+    index  index.html;
+    location /redirect_me {
+        return 301;
+    }
+}" > /etc/nginx/sites-available/default
+service nginx restart
