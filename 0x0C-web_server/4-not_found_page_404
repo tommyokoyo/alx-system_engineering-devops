@@ -4,6 +4,7 @@
 apt-get update
 apt-get install -y nginx
 echo "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
 echo "server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -14,7 +15,7 @@ echo "server {
     location /redirect_me {
         return 301;
     }
-    
+
     error_page 404 /404.html;
     location = /404.html{
         root /var/www/html;
