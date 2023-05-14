@@ -19,7 +19,7 @@ def recurse(subreddit, hot_list=[], next=""):
         next = data['data']['after']
         if next:
             recurse(subreddit, hot_list, next)
-        return (None)
+        return hot_list
 
     except Exception:
-        return (None)
+        return None
